@@ -15,13 +15,6 @@ type dbStore struct {
 	db *sql.DB
 }
 
-var store Store
-
-// Initialize
-func InitStore(s Store) {
-	store = s
-}
-
 func (store *dbStore) CreateBird(bird *Bird) error {
 	_, err := store.db.Query("INSERT INTO birds(species, description) VALUES ($1,$2)", bird.Species, bird.Description)
 	return err
@@ -59,4 +52,11 @@ func (store *dbStore) GetBirds() ([]*Bird, error) {
 
 	return birds, nil
 
+}
+
+var store Store
+
+// Initialize
+func InitStore(s Store) {
+	store = s
 }
